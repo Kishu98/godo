@@ -3,6 +3,8 @@ package cmd
 import (
 	"fmt"
 
+	"github.com/Kishu98/godo/cmd/todoCMD"
+	"github.com/Kishu98/godo/cmd/weatherCMD"
 	"github.com/spf13/cobra"
 )
 
@@ -17,7 +19,12 @@ var RootCMD = &cobra.Command{
 
 func Execute() {
 	if err := RootCMD.Execute(); err != nil {
-		fmt.Printf("Error: %v", err)
+		fmt.Printf("Error: %v \n", err)
 		return
 	}
+}
+
+func init() {
+	RootCMD.AddCommand(todoCMD.TodoCMD)
+	RootCMD.AddCommand(weatherCMD.WeatherCMD)
 }
