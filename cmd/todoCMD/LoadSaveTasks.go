@@ -4,12 +4,17 @@ import (
 	"encoding/json"
 	"fmt"
 	"os"
+	"time"
 )
 
 type Task struct {
-	ID   int    `json:"id"`
-	Name string `json:"name"`
+	ID        int       `json:"id"`
+	Name      string    `json:"name"`
+	Completed bool      `json:"completed"`
+	DueDate   time.Time `json:"dueDate"`
 }
+
+var tasks []Task
 
 const taskFile = "tasks.json"
 

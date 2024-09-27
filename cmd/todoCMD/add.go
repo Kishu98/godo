@@ -51,8 +51,9 @@ func addingTask() {
 	}
 
 	newTask := Task{
-		ID:   len(tasks) + 1,
-		Name: add,
+		ID:        len(tasks) + 1,
+		Name:      add,
+		Completed: false,
 	}
 
 	tasks = append(tasks, newTask)

@@ -54,12 +54,18 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 					if m.cursor >= len(m.todos) {
 						m.cursor = len(m.todos) - 1
 					}
-					tasks = m.todos
-					if err := SaveTasks(); err != nil {
-						fmt.Printf("Error saving to file: %v\n", err)
+					if m.cursor < 0 {
+						m.cursor = 0
 					}
+
 				}
+			case "c", "enter":
+				m.todos[m.cursor].Completed = !m.todos[m.cursor].Completed
 			case "q", "ctrl+c":
+				tasks = m.todos
+				if err := SaveTasks(); err != nil {
+					fmt.Printf("Error saving to file: %v\n", err)
+				}
 				return m, tea.Quit
 			}
 		case true:
@@ -72,8 +78,8 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 				}
 			case "enter":
 				m.todos = append(m.todos, Task{ID: len(m.todos) + 1, Name: m.newTodo})
-				tasks = m.todos
-				SaveTasks()
+				// tasks = m.todos
+				// SaveTasks()
 				m.inputMode = false
 			default:
 				m.newTodo += msg.String()
@@ -92,7 +98,7 @@ func (m model) View() string {
 	} else {
 
 		if len(m.todos) == 0 {
-			s = fmt.Sprintln("List is empty. Press 'q' to exit")
+			s = fmt.Sprintln("List is empty.\n\tPress 'a' to add tasks.\n\tPress 'q' to exit")
 			return s
 		}
 		s = fmt.Sprintln("Your list:")
@@ -103,10 +109,15 @@ func (m model) View() string {
 				cursor = ">"
 			}
 
-			s += fmt.Sprintf("%s %s\n", cursor, todo.Name)
+			completed := "[ ]"
+			if todo.Completed {
+				completed = "[✔]"
+			}
+
+			s += fmt.Sprintf("\t%s %s %s\n", cursor, completed, todo.Name)
 		}
 
-		s += fmt.Sprintln("\n\nPress 'q' to quit.")
+		s += fmt.Sprintln("\n\nPress 'a' to add tasks.\nPress 'd' to delete task.\nPress 'c' to mark task as completed.\nPress 'q' to quit.")
 
 	}
 	return s

@@ -8,8 +8,6 @@ import (
 	"github.com/spf13/cobra"
 )
 
-var tasks []Task
-
 var TodoCMD = &cobra.Command{
 	Use:   "todo",
 	Short: "Manage to-do list",
