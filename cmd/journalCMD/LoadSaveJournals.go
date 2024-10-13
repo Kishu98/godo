@@ -10,7 +10,7 @@ import (
 type Journal struct {
 	ID        int       `json:"id"`
 	Title     string    `json:"title"`
-	Completed bool      `json:"completed"`
+	Body      string    `json:"body"`
 	CreatedAt time.Time `json:"createdAt"`
 }
 
