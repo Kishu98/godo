@@ -3,6 +3,7 @@ package cmd
 import (
 	"fmt"
 
+	"github.com/Kishu98/godo/cmd/journalCMD"
 	"github.com/Kishu98/godo/cmd/todoCMD"
 	"github.com/Kishu98/godo/cmd/weatherCMD"
 	"github.com/spf13/cobra"
@@ -27,4 +28,5 @@ func Execute() {
 func init() {
 	RootCMD.AddCommand(todoCMD.TodoCMD)
 	RootCMD.AddCommand(weatherCMD.WeatherCMD)
+	RootCMD.AddCommand(journalCMD.JournalCMD)
 }
