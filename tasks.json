@@ -1,1 +1,1 @@
-[{"id":1,"name":"Learn Go","completed":true,"dueDate":"0001-01-01T00:00:00Z"},{"id":2,"name":"Implement bubbletea","completed":true,"dueDate":"0001-01-01T00:00:00Z"}]
+[{"id":1,"name":"Learn Go","completed":false,"dueDate":"0001-01-01T00:00:00Z"},{"id":2,"name":"Implement bubbletea","completed":false,"dueDate":"0001-01-01T00:00:00Z"}]
