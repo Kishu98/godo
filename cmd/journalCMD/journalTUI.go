@@ -180,7 +180,7 @@ func (m model) View() string {
 				cursor = ">"
 			}
 
-			s += fmt.Sprintf("\t %s %d. %s\t\t\t\t%d-%s-%d\n", cursor, journal.ID, journal.Title, journal.CreatedAt.Day(), journal.CreatedAt.Month(), journal.CreatedAt.Year())
+			s += fmt.Sprintf("\t %s %d. %s\t\t\t\t\t\t%d-%s-%d\n", cursor, journal.ID, journal.Title, journal.CreatedAt.Day(), journal.CreatedAt.Month(), journal.CreatedAt.Year())
 		}
 		s += fmt.Sprintln("\n\nPress 'a' to add a Journal Entry.\nPress 'e' to edit journal entry title.\nPress 'enter' to edit the jounal entry.\nPress 'd' to delete task.\nPress 'q' to quit.")
 	}
