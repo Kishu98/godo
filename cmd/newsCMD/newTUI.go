@@ -45,8 +45,7 @@ func getNews() {
 		return
 	}
 
-	// for _, article := range news.Articles {
-	// 	fmt.Println(article.Title)
-	// }
-    fmt.Println(news.Articles[0].Content)
+	for i, article := range news.Articles {
+		fmt.Printf("%d. %s\n%s\n\n", i+1, article.Title, article.Url)
+	}
 }
