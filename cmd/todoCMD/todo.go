@@ -16,6 +16,7 @@ var TodoCMD = &cobra.Command{
 
 		if c.Flags().Changed("add") || list || c.Flags().Changed("delete") {
 
+            // Maybe I can use goroutines in here.
 			// Checking if add flag used
 			if c.Flags().Changed("add") {
 				if strings.HasPrefix(add, "-") {
