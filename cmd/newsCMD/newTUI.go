@@ -2,8 +2,6 @@ package newsCMD
 
 import (
 	"fmt"
-	// "io"
-	// "net/http"
 
 	"github.com/PuerkitoBio/goquery"
 	tea "github.com/charmbracelet/bubbletea"
@@ -70,7 +68,8 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 				}
 			case "q", "ctrl+c":
 				return m, tea.Quit
-			case "return", "enter":
+			case "return", "enter", "e":
+                getNews()
 				m.ViewMode = "read"
 			}
 		case "read":
@@ -101,37 +100,42 @@ func (m model) View() string {
 			s += fmt.Sprintf("%s %d. %s\n\t%s\n", cursor, i+1, article.Title, article.Link)
 		}
 	} else if m.ViewMode == "read" {
-        s = getArticles(m)
+        fmt.Println("What?")
 	} else {
-        s = fmt.Sprintln("No idea")
-    }
-    // why the getArticles not working????
+		s = fmt.Sprintln("No idea")
+	}
+	// why the getArticles not working????
 	return s
 }
 
-func getArticles(m model) string {
+// func getIdea() string {
+// 	return fmt.Sprintln("No idea")
+// }
+
+func getArticles(m model)  {
 	var s string
-    fmt.Println("Starting to fetch...")
+	fmt.Println("Starting to fetch...")
 	c := colly.NewCollector()
 	c.OnHTML("div.article-body", func(h *colly.HTMLElement) {
 		h.DOM.Children().Each(func(i int, elem *goquery.Selection) {
 			switch goquery.NodeName(elem) {
 			case "p":
-                fmt.Println("Para --> ", elem.Text())
+				fmt.Println("Para --> ", elem.Text())
 				s += fmt.Sprint(elem.Text(), "\n")
-            case "h1", "h2", "h3", "h4", "h5", "h6":
-                fmt.Println("Para --> ", elem.Text())
-                s += fmt.Sprint("\n\t", elem.Text(), "\n")
-            default:
-                fmt.Println("Para --> ", elem.Text())
-                s += fmt.Sprint("\n\t\t", elem.Text(), "\n")
+			case "h1", "h2", "h3", "h4", "h5", "h6":
+				fmt.Println("Para --> ", elem.Text())
+				s += fmt.Sprint("\n\t", elem.Text(), "\n")
+			default:
+				fmt.Println("Para --> ", elem.Text())
+				s += fmt.Sprint("\n\t\t", elem.Text(), "\n")
 			}
 		})
 	})
-    fmt.Print(s)
-    // Did forget to add the c.Visit, but its still not working
-    c.Visit(m.Articles[m.cursor].Link)
-    return s
+	fmt.Print(s)
+    fmt.Println(m.Articles[m.cursor].Link)
+	// Did forget to add the c.Visit, but its still not working
+	c.Visit(m.Articles[m.cursor].Link)
+	// return s
 }
 
 func getNews() error {
